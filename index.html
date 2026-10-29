@@ -32,7 +32,7 @@ blockquote{margin:8px 0 0;padding:14px 16px;background:var(--hl);border-left:6px
 .nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
 .nav button{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--ink);color:var(--bg);font:inherit;font-weight:700;cursor:pointer}
 .nav button:disabled{opacity:.35}
-</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2b1d14"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Testing Lang Gud"></head><body><main>
+.txt p{margin:0 0 14px;font-size:18px;line-height:1.75}.txt{max-height:none}</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2b1d14"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Testing Lang Gud"></head><body><main>
 <h1>🌽 Testing Lang Gud</h1>
 <p class="sub">Ang binhi, di alam kung tutubo. Pero itinanim pa rin.</p>
 <div class="arc" id="arc" aria-label="Plot arc ng kuwento"></div>
@@ -40,6 +40,7 @@ blockquote{margin:8px 0 0;padding:14px 16px;background:var(--hl);border-left:6px
 <article class="card" id="card"></article>
 <a href="explainer.html" style="display:block;margin:0 0 14px;padding:14px 16px;border-radius:14px;background:var(--green);color:#fff;text-align:center;font-weight:700;text-decoration:none">Next: Philosophy Explainer 🧠 →</a><div class="nav"><button id="prev">← Balik</button><button id="next">Sunod →</button></div>
 <a href="explainer.html" style="display:block;margin-top:18px;padding:14px 16px;border-radius:14px;background:var(--green);color:#fff;text-align:center;font-weight:700;text-decoration:none">Next: Philosophy Explainer 🧠 →</a></main>
+<script src="story-data.js"></script>
 <script>
 var CH=[
 {t:"Ang Alabok ng San Isidro",b:"Pagpakilala",h:2,p:[["🥾","5 km ang lakad"],["🐱","Mga pusa"],["🏫","May pagsusulit"],["✊","Dili pa tapos"]],s:"Si Emilio naglakaw ug lima ka kilometro kada adlaw padulong sa eskwela. Gamay ang iyang gamit, apan dili siya mosuko bisan nahadlok.",q:"Ang alikabok sa sapatos ay hindi depinisyon ng kanyang bukas."},
@@ -65,10 +66,10 @@ document.getElementById("arc").innerHTML=s+'</svg>'}
 function render(){var c=CH[cur];
 document.getElementById("chips").innerHTML=CH.map(function(x,i){return '<button class="chip" aria-current="'+(i===cur)+'" onclick="go('+i+')">'+lab(i)+'</button>'}).join("");
 var pan=c.p.map(function(p,i){return '<div class="panel" style="animation-delay:'+i*90+'ms"><div class="e">'+p[0]+'</div><p>'+p[1]+'</p></div>'}).join("");
-document.getElementById("card").innerHTML='<div class="kicker">'+lab(cur)+'</div><h2>'+c.t+'</h2><div class="panels">'+pan+'</div><h3>Kwento</h3><p>'+c.s+'</p><h3>Pangunang plot</h3><span class="beat">'+c.b+'</span><h3>Highlight</h3><blockquote>“'+c.q+'”</blockquote>';
+document.getElementById("card").innerHTML='<div class="kicker">'+lab(cur)+'</div><h2>'+c.t+'</h2><div class="panels">'+pan+'</div><h3>📖 Basaha ang kabanata</h3><div class="txt">'+TEXT[cur]+'</div><h3>Kwento</h3><p>'+c.s+'</p><h3>Pangunang plot</h3><span class="beat">'+c.b+'</span><h3>Highlight</h3><blockquote>“'+c.q+'”</blockquote>';
 document.getElementById("prev").disabled=cur===0;document.getElementById("next").disabled=cur===CH.length-1;drawArc();
 var ch=document.querySelector('.chip[aria-current="true"]');if(ch&&ch.scrollIntoView)ch.scrollIntoView({block:"nearest",inline:"center"})}
-function go(i){cur=Math.max(0,Math.min(CH.length-1,i));try{location.hash=tokens[cur]}catch(e){}render()}
+function go(i){cur=Math.max(0,Math.min(CH.length-1,i));try{location.hash=tokens[cur]}catch(e){}render();window.scrollTo(0,0)}
 document.getElementById("prev").onclick=function(){go(cur-1)};document.getElementById("next").onclick=function(){go(cur+1)};
 document.addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
 var hx=tokens.indexOf((location.hash||"").slice(1));if(hx>=0)cur=hx;render();
